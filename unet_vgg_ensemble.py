@@ -3,7 +3,7 @@ import os
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.layers import Conv2D, Conv2DTranspose, MaxPool2D, BatchNormalization, ReLU, Input, ZeroPadding2D, Dropout, UpSampling2D, Concatenate, Cropping2D
 from metric import *
-from loss import *
+import loss
 from data_prep import *
 
 ## Adds dropout to conv layers + exp17
@@ -97,6 +97,7 @@ def unet():
 
 
 def get_dataset(data):
+    """Prepare a tf.data pipeline"""
     ds = tf.data.Dataset.from_tensor_slices(
         (data['image'].values, (data['1'].values, data['2'].values,
                                 data['3'].values, data['4'].values)))
@@ -111,6 +112,7 @@ def get_dataset(data):
 
 
 def scheduler(epoch):
+    """exponential lr scheduler"""
     if epoch < 6:
         return 0.0001
     else:

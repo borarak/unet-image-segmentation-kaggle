@@ -97,7 +97,6 @@ def unet():
 
 
 def get_dataset(data):
-    data = data.head(100)
     ds = tf.data.Dataset.from_tensor_slices(
         (data['image'].values, (data['1'].values, data['2'].values,
                                 data['3'].values, data['4'].values)))
